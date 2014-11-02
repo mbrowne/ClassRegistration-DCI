@@ -2,21 +2,24 @@
 
 <dl class="use-case-properties">
 	<dt>Primary Actor(s)</dt>
-	<dd>Parent, Administrator</dd>
-	
-	<dt>Priority</dt>
-	<dd>A</dd>
+	<dd>Parent, or Administrator (on behalf of parent)</dd>
 	
 	<dt>Level</dt>
-	<dd>User goal</dd>
+	<dd>Sub-function</dd>
+	
+	<dt>Parent Use Case</dt>
+	<dd>[Register Student(s) for Classes](register-students-for-classes)</dd>
 	
 	<dt>Precondition</dt>
-	<dd>The Parent or Administrator has entered information and selected classes for at least one student</dd>
+	<dd>The Parent has provided information and selected classes for at least one student</dd>
 	
 	<dt>Postcondition (Guarantees)</dt>
 	<dd>The registration is only marked as paid in the database if payment was successfully
 		processed or (in the case of check/cash) recorded.
 	</dd>
+	
+	<dt>Trigger</dt>
+	<dd>Parent indicates that he/she is done selecting classes</dd>
 </dl>
 
 ## One-Time Credit Card Payment Success Scenario ##
@@ -29,20 +32,20 @@
 <ol class="scenario">
 	<li class="system">Calculates the registration charges.<br>
 	For each student being registered:
-		<ol>
+		<ul>
 			<li>Calculate the subtotal (the sum of the prices for each class, before discounts)
 			<li>Include [Calculate Discounts](calculate-discounts) and subtract
 				the total discount amount from the subtotal
 			<li>If the student was previously registered for **any** classes:
-				<ol>
+				<ul>
 					<li>If the new total for the camper is greater than what was already paid,
 						charge for the difference but don't charge the registration fee
-				</ol>
+				</ul>
 			</li>
 			<li>In all other cases, charge the registration fee (e.g. $10 for each camper)
 			<li>Adds the total for this student to the total for this transaction,
 				including details about all applicable discounts for future reference.
-		</ol>
+		</ul>
 	</li>
 
 	<li class="system">Displays an order summary
@@ -57,8 +60,6 @@
 		and receives a response indicating that the payment was processed successfully
 	<li class="system">Records the transaction in the database
 	<li class="system">Marks the Parent's registration as paid in the database
-	<li class="system">Emails the Parent a receipt
-	<li class="system">Displays the receipt
 </ol>
 
 ### Deviations ###
@@ -82,8 +83,7 @@ __6a. Payment Declined__
 
 ## Financial Aid Scenario ##
 
-Question: Does there need to be a different setting for number of minutes/hours before before
-registration expiration for financial aid versus regular payment?
+TODO
 
 ## Payment Plan Success Scenario ##
 
